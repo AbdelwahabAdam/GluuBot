@@ -45,6 +45,6 @@ policies:
 #     epochs: 100
 #     constrain_similarities: true
 importers:
-- name: "RasaFileImporter"
+# - name: "RasaFileImporter"
 - name: "git_importer.GitImporter"
-  repository: "https://github.com/AbdelwahabAdam/hopa-rasa-demo.git"
+  repository: "hopa-rasa-demo"

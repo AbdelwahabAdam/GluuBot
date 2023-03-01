@@ -16,6 +16,7 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
+    - hopa
 
 - intent: goodbye
   examples: |
