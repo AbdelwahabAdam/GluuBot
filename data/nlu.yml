@@ -16,7 +16,6 @@ nlu:
     - goodmorning
     - goodevening
     - good afternoon
-    - hopa
 
 - intent: goodbye
   examples: |
@@ -31,6 +30,8 @@ nlu:
     - bye bye
     - see you later
     - salam
+    - hopa
+
 
 - intent: affirm
   examples: |
