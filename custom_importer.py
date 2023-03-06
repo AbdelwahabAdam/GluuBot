@@ -37,22 +37,31 @@ class MyImporter(TrainingDataImporter):
 
         data_files = self.get_files_from("data")
 
-        directory = tempfile.mkdtemp()
+
+        directory_data = tempfile.mkdtemp()
 
         for f in data_files:
-            with open(os.path.join(directory, f.name), "w+b") as file:
+            with open(os.path.join(directory_data, f.name), "w+b") as file:
                 file.write(f.decoded_content)
 
 
         self._story_files = rasa.shared.data.get_data_files(
-            directory, YAMLStoryReader.is_stories_file
+            directory_data, YAMLStoryReader.is_stories_file
         )
         self._nlu_files = rasa.shared.data.get_data_files(
-            directory, rasa.shared.data.is_nlu_file
+            directory_data, rasa.shared.data.is_nlu_file
         )
 
+        domain_file = self.get_files_from("domain")
 
-        self._domain_path = domain_path
+        directory_domain = tempfile.mkdtemp()
+
+        for f in domain_file:
+            with open(os.path.join(directory_domain, f.name), "w+b") as file:
+                file.write(f.decoded_content)
+
+
+        self._domain_path = directory_domain
 
         self._conversation_test_files = rasa.shared.data.get_data_files(
             training_data_paths, YAMLStoryReader.is_test_stories_file
