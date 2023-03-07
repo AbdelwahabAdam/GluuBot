@@ -1,3 +1,6 @@
+## ---------------------------------------------------------------- ##
+## ----------------------- Convert YAML to JSON ------------------- ##
+# ---------------------------------------------------------------- ##
 import yaml
 import json
 import os
@@ -11,3 +14,4 @@ for f in os.listdir():
                 with open(str(f)+'/'+str(yml_file), 'r') as yaml_in, open('json_data/'+yml_file.replace('yml','json'), "w") as json_out:
                     yaml_object = yaml.safe_load(yaml_in) 
                     json.dump(yaml_object, json_out)
+
