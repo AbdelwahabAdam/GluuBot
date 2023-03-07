@@ -1,8 +1,13 @@
-## This is a smiple test for Custom importer to get training data from github
+# This is a smiple test for Custom importer to get training data from github
 
-- This git repo contain the Training data (nlu.yml,stories.yml,rules.yml)
+## This git repo contains tje following
+- the Training data in `YAML` format data/{nlu.yml, stories.yml, rules.yml} and domain/{domain.yml}
+
+- the Training data in `JSON` format json_data/{nlu.yml, stories.yml, rules.yml, domain.yml}
 
 - The Custom importer script (custom_importer.py)
+
+- Two sperate Scripts to convert data from `JSON` to `YAML` and vice versa
 
 - The configuration file (config.yaml)
 
@@ -101,3 +106,7 @@ importers:
 # To tran you bot from git data
 - First call `rasa train`
 - Then if every thing works well call `rasa shell` to test the bot in the terminal
+
+
+------
+
