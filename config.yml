@@ -46,5 +46,4 @@ policies:
 #     constrain_similarities: true
 importers:
 - name: "custom_importer.MyImporter"
-  repository: "AbdelwahabAdam/hopa-rasa-demo"
 # - name: "RasaFileImporter"

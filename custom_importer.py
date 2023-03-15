@@ -13,37 +13,30 @@ from rasa.shared.core.domain import InvalidDomain, Domain
 from rasa.shared.core.training_data.story_reader.yaml_story_reader import (
     YAMLStoryReader,
 )
-
-from github import Github
-from github.ContentFile import ContentFile
 import tempfile
+from database_wrapper import *
+
 
 logger = logging.getLogger(__name__)
 
 
 class MyImporter(TrainingDataImporter):
-    """Default `TrainingFileImporter` implementation."""
 
     def __init__(
         self,
         config_file: Optional[Text] = None,
         domain_path: Optional[Text] = None,
         training_data_paths: Optional[Union[List[Text], Text]] = None,
-        repository: Text = "",
     ):
-        github = Github()
-
-        self.repository = github.get_repo(repository)
-
-        data_files = self.get_files_from("data")
-
+    
+        db = BotDataBase()
+        db.connect()
 
         directory_data = tempfile.mkdtemp()
 
-        for f in data_files:
-            with open(os.path.join(directory_data, f.name), "w+b") as file:
-                file.write(f.decoded_content)
-
+        db.get_nluData(directory_data=directory_data)
+        db.get_domainData(directory_data=directory_data)
+        db.get_rulesData(directory_data=directory_data)
 
         self._story_files = rasa.shared.data.get_data_files(
             directory_data, YAMLStoryReader.is_stories_file
@@ -52,30 +45,12 @@ class MyImporter(TrainingDataImporter):
             directory_data, rasa.shared.data.is_nlu_file
         )
 
-        domain_file = self.get_files_from("domain")
-
-        directory_domain = tempfile.mkdtemp()
-
-        for f in domain_file:
-            with open(os.path.join(directory_domain, f.name), "w+b") as file:
-                file.write(f.decoded_content)
-
-
-        self._domain_path = directory_domain
+        self._domain_path = directory_data
 
         self._conversation_test_files = rasa.shared.data.get_data_files(
             training_data_paths, YAMLStoryReader.is_test_stories_file
         )
         self.config_file = config_file
-
-    def get_files_from(self, directory: Text) -> List[ContentFile]:
-        files = []
-        for file in self.repository.get_contents(directory):
-            if file.type == "file":
-                files.append(file)
-            else:  # it's another directory
-                files += self.get_files_from(file.path)
-        return files
 
 
     def get_config(self) -> Dict:

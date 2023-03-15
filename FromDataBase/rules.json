@@ -1,0 +1,38 @@
+{
+  "version": "3.1",
+  "rules": [
+    {
+      "rule": "greet_rule",
+      "steps": [
+        {
+          "intent": "greet"
+        },
+        {
+          "action": "utter_greet"
+        }
+      ]
+    },
+    {
+      "rule": "bot_challenge_rule",
+      "steps": [
+        {
+          "intent": "bot_challenge"
+        },
+        {
+          "action": "utter_bot_challenge"
+        }
+      ]
+    },
+    {
+      "rule": "goodbye_rule",
+      "steps": [
+        {
+          "intent": "goodbye"
+        },
+        {
+          "action": "utter_goodbye"
+        }
+      ]
+    }
+  ]
+}
