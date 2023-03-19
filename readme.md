@@ -35,7 +35,7 @@ you must have the following installed to test
 - Make new dir for the project
   >$ mkdir GluuBot
 - Go to the new directory
-  >$ CD  GluuBot
+  >$ cd  GluuBot
 - Pull the repo using 
   >$ git pull https://github.com/AbdelwahabAdam/GluuBot.git
 - Up the compose
