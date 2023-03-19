@@ -45,5 +45,5 @@ policies:
 #     epochs: 100
 #     constrain_similarities: true
 importers:
-- name: "custom_importer.MyImporter"
-# - name: "RasaFileImporter"
+  - name: "custom_importer.MyImporter"
+  # - name: "RasaFileImporter"
