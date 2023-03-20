@@ -78,6 +78,11 @@ class BotDataBase:
             f'''UPDATE intent SET {value} = '{new_value}' WHERE {where} = {where_value} ''')
         self.get_response(query=query, get_bool=1)
 
+    def add_value(self, id, intent_name, intent_examples, response):
+        query = (
+            f'''INSERT INTO intent (id, intent_name, intent_examples, response) VALUES({id},'{intent_name}',ARRAY {intent_examples},'{response}');''')
+        self.get_response(query=query, get_bool=1)
+
     def get_nluData(self, directory_data):
         for i in self.get_all():
             temp_dict = {'intent': i[0]['intent_name'],
@@ -128,9 +133,9 @@ class BotDataBase:
 
 
 # directory_data = tempfile.mkdtemp()
-dbconn = BotDataBase()
-dbconn.connect()
-print(dbconn.get_all())
+# dbconn = BotDataBase()
+# dbconn.connect()
+# print(dbconn.get_all())
 # dbconn.get_nluData(directory_data=directory_data)
 # dbconn.get_domainData(directory_data=directory_data)
 # dbconn.get_rulesData(directory_data=directory_data)
