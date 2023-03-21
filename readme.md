@@ -24,7 +24,8 @@
   - This is the docker compose file, that contain all the services used.
 - domain.yml
   - This file contain the intents and the responses for the bot.
-
+- db_command.py
+  - This file handel the database. (add, update, delete, getValue, get)
 ----------------
 ## prerequisites.
 you must have the following installed to test
@@ -146,3 +147,33 @@ importers:
 - Then if every thing works well call `rasa shell` to test the bot in the terminal.
 
 ------
+
+## db_command.py
+
+You can use this file to manpulate the database.
+- `get`: to get all data in the DB
+  > ex: python3 db_command.py get
+- `add`: to add a new values
+  > ex: python3 db_command.py add id intent_name ['intent','example'] responce
+- `update`: to update certain value
+  > ex: python3 db_command.py update response Bye! id 1
+- `getValue`: to get certain value
+  > ex: python3 db_command.py get_Value response id 1
+- `delete`: to delete a row (on id)
+  > ex: python3 db_command.py delete 1
+
+------
+## Integrate Rasa With Rocket chat
+
+There are several method to integrate both.
+I will try to include all of them.
+
+### Method 1 (webhook)
+- Start Rocket chat server.
+- Create Bot User in Rockerchat.
+- Configure Rasa Bot
+- Start Rasa server
+- Make Rasa Bot accessible by Rocket.Chat
+- Configure Rocket.Chat webhook
+
+
