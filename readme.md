@@ -2,6 +2,18 @@
 
 ### This git repo contains the following
 #### Directories
+
+- Postgres with rasa 
+  - This dirctory contain all files to integrate rasa chatbot with posgtres, and let rasa fetch training data from the DB.
+
+- Rocketchat with rasa
+  - This dirctory contain all files to integrate rasa chatbot with Rocketchat, This use Omnichannel and Livechat features.
+
+------------------
+------------------
+## First 
+### Postgres with rasa
+#### Directories
 - FromDataBase
   - This directory contain the `JSON` data fetched from the Postgres DB.
 - data_not_used
@@ -175,13 +187,26 @@ The MongoDB that powers the RocketChat server is ran by the
 
 we can use all systemctl commands with it.
 
-------
+------------------
+------------------
+## Sec. 
+### Postgres with rasa
+#### Directories
+- bot_rasa
+  - This directory contain all training data for rasa chatbot.
 
+----------------
+#### Files
+- docker-compose.yml
+  - This is the docker compose file, that contain all the services used.
+- redirectServer.py
+  - This file creat a intermediary server that recieve from Rasa App in rocket and send it to rasa server and then revice from rasa server and sent the responce back to Rasa App in rocket.
 
-## Integrate Rasa With RocketChat
+----------------
+
+## Rocketchat with rasa
 
 There are several method to integrate both.
-I will try to include all of them.
 the best way using the rasa app from rocketchat market.
 
 ------
