@@ -163,17 +163,102 @@ You can use this file to manpulate the database.
   > ex: python3 db_command.py delete 1
 
 ------
-## Integrate Rasa With Rocket chat
+## Install RocketChat service.
+RocketChat service can installed using the following command:
+  > sudo snap install rocketchat-server
+
+also, we can Manage the RocketChat service using the following:
+  > systemctl status `snap.rocketchat-server.rocketchat-server.service`
+
+The MongoDB that powers the RocketChat server is ran by the 
+`snap.rocketchat-server.rocketchat-mongo.service`
+
+we can use all systemctl commands with it.
+
+------
+
+
+## Integrate Rasa With RocketChat
 
 There are several method to integrate both.
 I will try to include all of them.
+the best way using the rasa app from rocketchat market.
 
-### Method 1 (webhook)
-- Start Rocket chat server.
-- Create Bot User in Rockerchat.
-- Configure Rasa Bot
-- Start Rasa server
-- Make Rasa Bot accessible by Rocket.Chat
-- Configure Rocket.Chat webhook
+------
+
+### Installation steps:
 
 
+### Rocket Chat Setup
+
+- create a new user. `Setting` > `Users`
+- This new user must have these 2 roles.
+    1. bot
+    2. livechat-agent
+- enable Omnichannel.
+  -`Administration` > `workspace` > `setting` > `Omnichannel` > `Omnichannel enabled`
+
+- Assign new conversations to bot agent.
+-`Administration` > `workspace` > `setting` > `Omnichannel`  > `Routing` > `Assign new conversations to bot agent`
+------
+
+### Setup Rocket chat Omnichannel
+
+- Add the bot to `Agents` 
+  - `Administration` > `Omnichannel` > `Agents` > `add`
+- Add new `Department`
+  - add department with the name **`general`**
+
+-------
+### Rasa App setup
+- Download directly from Rocket.Chat marketplace
+- Fill neccessary fields in `Setting`
+  - Bot Username (required)
+    - the bot user name we created.
+  - Rasa Server Url (required)
+    - The URL for rasa server, here we will put another url for a python flask server. >> will be demonstrated later.
+    - ex: http://**ip**:4000 >> put you device ip, dont put localhost
+  - Default Handover Department Name (required)
+    - add `general` that we created before.
+
+------
+### Note
+
+- There is an error in the Rasa App, it sends data that rasa server couldn’t parse
+
+EX:
+- data that was sent by rasa app in rocket market >> single quotes
+```
+[{'recipient_id': 'default', 'text': 'Hey! How are you?'}]
+```
+- using postman to check, this body was parsed successfully >> double quotes
+  
+```
+{
+    "sender": "WMXQiQaQkxeTNLa2G", 
+    "message": "hi"
+}
+```
+
+- this body was failed >> single quotes
+```
+{
+    'sender': 'WMXQiQaQkxeTNLa2G', 
+    'message': 'hi'
+}
+```
+
+we make a turnaround with python flask to receive it and send it back with double quotes. >> `redirectServer.py`
+
+
+------
+### How to test
+
+- run the docker-compose.
+- Follow the steps in `Rocket Chat Setup`.
+- Follow the steps in `Setup Rocket chat Omnichannel`.
+- Follow the steps in `Rasa App setup`.
+- Run `redirectServer.py` server.
+- open `localhost:3000/livechat`, choose department, then start.
+- The livechat will start with rasa bot as Agent.
+- Any message sent will be send to `rocketchat app` > then it will be sent to `Flask server` > then it will be formated and sent back to `Rocket chat rasa app` again.
