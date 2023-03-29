@@ -2,13 +2,11 @@ version: "3.0"
 services:
     rasa:
       container_name: rasa
-      image: rasa/rasa
+      image: my_rasa_image
       ports:
         - 5005:5005
       volumes:
         - ./:/app
-      command:
-        -  train 
       depends_on:
         - db
             

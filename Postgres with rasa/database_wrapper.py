@@ -133,9 +133,9 @@ class BotDataBase:
 
 
 # directory_data = tempfile.mkdtemp()
-# dbconn = BotDataBase()
-# dbconn.connect()
-# print(dbconn.get_all())
+dbconn = BotDataBase()
+dbconn.connect()
+print(dbconn.get_all())
 # dbconn.get_nluData(directory_data=directory_data)
 # dbconn.get_domainData(directory_data=directory_data)
 # dbconn.get_rulesData(directory_data=directory_data)
