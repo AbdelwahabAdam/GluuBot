@@ -2,7 +2,8 @@ version: "3.0"
 services:
     rasa:
       container_name: rasa
-      image: my_rasa_image
+      build:
+        context: ./
       ports:
         - 5005:5005
       volumes:
