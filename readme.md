@@ -229,10 +229,11 @@ the best way using the rasa app from rocketchat market.
 
 ### Setup Rocket chat Omnichannel
 
-- Add the bot to `Agents` 
-  - `Administration` > `Omnichannel` > `Agents` > `add`
+- make sure the bot assign as `Agents` 
+  - `Administration` > `Omnichannel` > `Agents` 
 - Add new `Department`
-  - add department with the name **`general`**
+  - add department with the name **`general`**, `enable` it and add the bot user as Agent >> Make sure to press `Add`
+  - then add email for it and hit `save`
 
 -------
 ### Rasa App setup

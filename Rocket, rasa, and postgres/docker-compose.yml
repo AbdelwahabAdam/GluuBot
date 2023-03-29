@@ -45,15 +45,17 @@ services:
       ALLOW_EMPTY_PASSWORD: ${ALLOW_EMPTY_PASSWORD:-yes}
   
   bot_rasa:
-    image: rasa/rasa
+    build:
+      context: ./bot_rasa
     volumes:
-      - ./:/app
+      - ./bot_rasa:/app
     command:
       - train
     ports:
       - 5005:5005
     depends_on:
       - db
+  
   db: 
     image: "postgres"
     environment:
@@ -67,3 +69,13 @@ services:
       - "5432:5432"
     networks:
       - default
+
+  # flask:
+  #   build:
+  #     context: ./redirectServer
+  #   ports:
+  #     - "5000:5000"
+  #   volumes:
+  #     - ./redirectServer:/app
+  #   depends_on:
+  #     - "bot_rasa"
